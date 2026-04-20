@@ -3,7 +3,7 @@
 1. Install packages
 
 ```
-npm
+npm install
 ```
 
 2. Run project
