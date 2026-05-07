@@ -108,7 +108,13 @@ export default function AuthLogin({ inputSx }) {
   };
 
   return (
-    <Grid container spacing={GRID_SPACING}>
+    <Grid
+      container
+      sx={{
+        minHeight: '100vh',
+        width: '100%'
+      }}
+    >
       <Snackbar
         open={snackbar.open}
         autoHideDuration={4000}
@@ -124,17 +130,28 @@ export default function AuthLogin({ inputSx }) {
           {snackbar.message}
         </Alert>
       </Snackbar>
-      <Grid size={{ xs: 12, sm: 6, lg: 5 }}>
+      {/* LEFT IMAGE SECTION */}
+      <Grid
+        size={{ xs: 0, sm: 5, md: 5 }}
+        sx={{
+          display: {
+            xs: 'none',
+            sm: 'block'
+          }
+        }}
+      >
         <Box
           sx={{
-            position: 'relative',
+            width: '100%',
             height: '100vh',
-            width:'100vh',
-            backgroundImage: `url(${loginImage})`,
+            background: `url(${loginImage})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            position: 'relative'
           }}
         >
+          {/* LOGO */}
           <Box
             sx={{
               position: 'absolute',
@@ -142,121 +159,178 @@ export default function AuthLogin({ inputSx }) {
               left: 30,
               display: 'flex',
               alignItems: 'center',
-              gap: 0.5
+              gap: 1
             }}
           >
-            <Box component="img" src={loginSqr} alt="square-logo" sx={{ width: 24 }} />
-            
-            <Box component="img" src={loginLogo} alt="logo" sx={{ width: 140,marginleft:'10px' }} />
-          </Box>
+            <Box
+              component="img"
+              src={loginSqr}
+              alt="square"
+              sx={{
+                width: 24
+              }}
+            />
 
-          <Box
-            sx={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#fff',
-              textAlign: 'center',
-              px: 4
-            }}
-          >
+            <Box
+              component="img"
+              src={loginLogo}
+              alt="logo"
+              sx={{
+                width: 140
+              }}
+            />
           </Box>
         </Box>
       </Grid>
 
-      <Grid py={5} px={5} size={{ xs: 12, sm: 6, lg: 7 }} sx={{ padding:'120px',backgroundColor:'#fff' }}>
-      <Box>
-      <Typography variant="h3" fontWeight="bold" gutterBottom>
-       Forgot Password
-      </Typography>
-
-      <Typography variant="body1" sx={{ opacity: 0.9 }} mb={4}>
-        Please enter your details to continue
-      </Typography>
-    </Box>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack sx={{ gap: 3 }}>
-        <Box>
-          <Typography variant="subtitle2" mb={1} fontWeight={500}>
-            Username
-          </Typography>
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            {...register('email', emailSchema)}
-            placeholder="example@mypackage.com"
-            fullWidth
-            label="Email Address / Username"
-            error={Boolean(errors.email)}
-            sx={inputSx}
-          />
-          {errors.email?.message && <FormHelperText error>{errors.email.message}</FormHelperText>}
-        </Box>
-
-        <Box>
-          <Typography variant="subtitle2" mb={1} fontWeight={500}>
-            New Password
-          </Typography>
-          <FormControl fullWidth error={Boolean(errors.password)}>
-            <InputLabel htmlFor="outlined-adornment-password">New Password</InputLabel>
-            <OutlinedInput
-              {...register('password', passwordSchema)}
-              id="outlined-adornment-password"
-              type={isPasswordVisible ? 'text' : 'password'}
-              label="Enter new password"
-              endAdornment={
-                <InputAdornment position="end" sx={{ cursor: 'pointer' }} onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-                  {isPasswordVisible ? <Visibility /> : <VisibilityOff />}
-                </InputAdornment>
-              }
-              sx={inputSx}
-            />
-          </FormControl>
-            {errors.password?.message && <FormHelperText error>{errors.password.message}</FormHelperText>}
-        </Box>
-
-        <Box>
-          <Typography variant="subtitle2" mb={1} fontWeight={500}>
-            Confirm Password
-          </Typography>
-          <FormControl fullWidth error={Boolean(errors.confirm_password)}>
-            <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
-            <OutlinedInput
-              {...register("confirm_password", {
-                  validate: value =>
-                    value === passwordValue ||
-                    "Passwords do not match"
-            })}
-              id="outlined-adornment-password"
-              type={isPasswordVisible ? 'text' : 'password'}
-              label="Enter confirm password"
-              endAdornment={
-                <InputAdornment position="end" sx={{ cursor: 'pointer' }} onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-                  {isPasswordVisible ? <Visibility /> : <VisibilityOff />}
-                </InputAdornment>
-              }
-              sx={inputSx}
-            />
-          </FormControl>
-            {errors.confirm_password?.message && <FormHelperText error>{errors.confirm_password.message}</FormHelperText>}
-        </Box>
-        <Box>
-          
-        </Box>
-      </Stack>
-
-      <Button
-        type="submit"
-        variant="contained"
-        fullWidth
-        disabled={loading}
+      {/* RIGHT FORM SECTION */}
+      <Grid
+        size={{ xs: 12, sm: 7, md: 7 }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#fff',
+          px: {
+            xs: 3,
+            sm: 5,
+            md: 8
+          },
+          py: 5
+        }}
       >
-        {loading ? 'Resetting Password...' : 'Reset Password'}
-      </Button>
-    </form>
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: 500,
+          }}
+        >
+          <Box
+            sx={{
+              display: { xs: 'flex', sm: 'none' },
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 1,
+              mb: 5,
+              width: '100%',
+              backgroundColor: '#000',
+              padding: '10px 0'
+            }}
+          >
+          {/* Square Logo */}
+          <Box
+            component="img"
+            src={loginSqr}
+            alt="square-logo"
+            sx={{
+              width: 22,
+              height: 'auto'
+            }}
+          />
+
+          {/* Main Logo */}
+          <Box
+              component="img"
+              src={loginLogo}
+              alt="logo"
+              sx={{
+                width: 120,
+                height: 'auto'
+              }}
+            />
+          </Box>
+          <Box>
+          <Typography variant="h3" fontWeight="bold" gutterBottom>
+          Forgot Password
+          </Typography>
+
+          <Typography variant="body1" sx={{ opacity: 0.9 }} mb={4}>
+            Please enter your details to continue
+          </Typography>
+        </Box>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack sx={{ gap: 3 }}>
+            <Box>
+              <Typography variant="subtitle2" mb={1} fontWeight={500}>
+                Username
+              </Typography>
+              <TextField
+                id="outlined-basic"
+                variant="outlined"
+                {...register('email', emailSchema)}
+                placeholder="example@mypackage.com"
+                fullWidth
+                label="Email Address / Username"
+                error={Boolean(errors.email)}
+                sx={inputSx}
+              />
+              {errors.email?.message && <FormHelperText error>{errors.email.message}</FormHelperText>}
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle2" mb={1} fontWeight={500}>
+                New Password
+              </Typography>
+              <FormControl fullWidth error={Boolean(errors.password)}>
+                <InputLabel htmlFor="outlined-adornment-password">New Password</InputLabel>
+                <OutlinedInput
+                  {...register('password', passwordSchema)}
+                  id="outlined-adornment-password"
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  label="Enter new password"
+                  endAdornment={
+                    <InputAdornment position="end" sx={{ cursor: 'pointer' }} onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
+                      {isPasswordVisible ? <Visibility /> : <VisibilityOff />}
+                    </InputAdornment>
+                  }
+                  sx={inputSx}
+                />
+              </FormControl>
+                {errors.password?.message && <FormHelperText error>{errors.password.message}</FormHelperText>}
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle2" mb={1} fontWeight={500}>
+                Confirm Password
+              </Typography>
+              <FormControl fullWidth error={Boolean(errors.confirm_password)}>
+                <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
+                <OutlinedInput
+                  {...register("confirm_password", {
+                      validate: value =>
+                        value === passwordValue ||
+                        "Passwords do not match"
+                })}
+                  id="outlined-adornment-password"
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  label="Enter confirm password"
+                  endAdornment={
+                    <InputAdornment position="end" sx={{ cursor: 'pointer' }} onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
+                      {isPasswordVisible ? <Visibility /> : <VisibilityOff />}
+                    </InputAdornment>
+                  }
+                  sx={inputSx}
+                />
+              </FormControl>
+                {errors.confirm_password?.message && <FormHelperText error>{errors.confirm_password.message}</FormHelperText>}
+            </Box>
+            <Box>
+              
+            </Box>
+          </Stack>
+
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            disabled={loading}
+          >
+            {loading ? 'Resetting Password...' : 'Reset Password'}
+          </Button>
+        </form>
+      </Box>
     </Grid>
-    </Grid>
+  </Grid>
   );
 }
 

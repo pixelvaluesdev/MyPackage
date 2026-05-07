@@ -94,7 +94,13 @@ export default function AuthLogin({ inputSx }) {
   };
 
   return (
-    <Grid container spacing={GRID_SPACING}>
+    <Grid
+      container
+      sx={{
+        minHeight: '100vh',
+        width: '100%'
+      }}
+    >
       <Snackbar
         open={snackbar.open}
         autoHideDuration={4000}
@@ -110,18 +116,28 @@ export default function AuthLogin({ inputSx }) {
           {snackbar.message}
         </Alert>
       </Snackbar>
-      <Grid size={{ xs: 12, sm: 6, lg: 5 }}>
+      {/* LEFT IMAGE SECTION */}
+      <Grid
+        size={{ xs: 0, sm: 5, md: 5 }}
+        sx={{
+          display: {
+            xs: 'none',
+            sm: 'block'
+          }
+        }}
+      >
         <Box
           sx={{
-            position: 'relative',
+            width: '100%',
             height: '100vh',
-            width:'100vh',
-            backgroundImage: `url(${loginImage})`,
+            background: `url(${loginImage})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            position: 'relative'
           }}
         >
-          {/* 🔹 Logos row (square first, then logo) */}
+          {/* LOGO */}
           <Box
             sx={{
               position: 'absolute',
@@ -129,187 +145,246 @@ export default function AuthLogin({ inputSx }) {
               left: 30,
               display: 'flex',
               alignItems: 'center',
-              gap: 0.5
+              gap: 1
             }}
           >
-            {/* FIRST */}
-            <Box component="img" src={loginSqr} alt="square-logo" sx={{ width: 24 }} />
-             {/* <Typography variant="h3" ml="{2}" gutterBottom sx={{ height:'30px', width:'0px',color:'#fff', }}>|</Typography> */}
-            {/* SECOND */}
-            <Box component="img" src={loginLogo} alt="logo" sx={{ width: 140,marginleft:'10px' }} />
-          </Box>
+            <Box
+              component="img"
+              src={loginSqr}
+              alt="square"
+              sx={{
+                width: 24
+              }}
+            />
 
-          {/* 🔹 Center content */}
-          <Box
-            sx={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#fff',
-              textAlign: 'center',
-              px: 4
-            }}
-          >
-            {/* your text here */}
+            <Box
+              component="img"
+              src={loginLogo}
+              alt="logo"
+              sx={{
+                width: 140
+              }}
+            />
           </Box>
         </Box>
       </Grid>
 
-      <Grid py={5} px={5} size={{ xs: 12, sm: 6, lg: 7 }} sx={{ padding:'120px',backgroundColor:'#fff' }}>
-      <Box>
-      <Typography variant="h3" fontWeight="bold" gutterBottom>
-       Sign In
-      </Typography>
-
-      <Typography variant="body1" sx={{ opacity: 0.9 }} mb={4}>
-        Please enter your details to continue
-      </Typography>
-    </Box>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack sx={{ gap: 3 }}>
-        <Box>
-          <Typography variant="subtitle2" mb={1} fontWeight={500}>
-            Username
-          </Typography>
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            name="email"
-            {...register('email', emailSchema)}
-            placeholder="example@materially.com"
-            fullWidth
-            label="Email Address / Username"
-            error={Boolean(errors.email)}
-            sx={inputSx}
-          />
-          {errors.email?.message && <FormHelperText error>{errors.email.message}</FormHelperText>}
-        </Box>
-
-        <Box>
-          <Typography variant="subtitle2" mb={1} fontWeight={500}>
-            Password
-          </Typography>
-          <FormControl fullWidth error={Boolean(errors.password)}>
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput
-              {...register('password', passwordSchema)}
-              id="outlined-adornment-password"
-              type={isPasswordVisible ? 'text' : 'password'}
-              name="password"
-              label="Password"
-              placeholder="Enter your password"
-              endAdornment={
-                <InputAdornment position="end" sx={{ cursor: 'pointer' }} onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-                  {isPasswordVisible ? <Visibility /> : <VisibilityOff />}
-                </InputAdornment>
-              }
-              sx={inputSx}
-            />
-          </FormControl>
-          <Stack
-            direction="row"
-            sx={{ alignItems: 'flex-start', justifyContent: errors.password ? 'space-between' : 'flex-end', width: 1, gap: 1 }}
-          >
-            {errors.password?.message && <FormHelperText error>{errors.password.message}</FormHelperText>}
-            <Link
-              component={RouterLink}
-              underline="hover"
-              variant="subtitle2"
-              to="/forgot-password"
-              textAlign="right"
-              sx={{ '&:hover': { color: 'primary.dark' }, mt: 0.375, whiteSpace: 'nowrap' }}
-            >
-              Forgot Password?
-            </Link>
-          </Stack>
-        </Box>
-        <Box>
-          <FormControl error={Boolean(errors.terms)}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  {...register('terms', {
-                    required: 'You must accept Terms & Conditions'
-                  })}
-                />
-              }
-              label={
-                <span>
-                  I have read and agreed to{' '}
-                  <Link
-                    component="button"
-                    type="button"
-                    onClick={() => setOpenTerms(true)}
-                    underline="hover"
-                  >
-                    terms & conditions
-                  </Link>
-                </span>
-              }
-            />
-
-            {errors.terms && (
-              <FormHelperText>{errors.terms.message}</FormHelperText>
-            )}
-          </FormControl>
-        </Box>
-      </Stack>
-
-      <Button
-        type="submit"
-        variant="contained"
-        fullWidth
-        disabled={loading}
+      {/* RIGHT FORM SECTION */}
+      <Grid
+        size={{ xs: 12, sm: 7, md: 7 }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#fff',
+          px: {
+            xs: 3,
+            sm: 5,
+            md: 8
+          },
+          py: 5
+        }}
       >
-        {loading ? 'Signing In...' : 'Sign in'}
-      </Button>
-    </form>
-    </Grid>
-    <Dialog
-      open={openTerms}
-      onClose={() => setOpenTerms(false)}
-      maxWidth="md"
-      fullWidth
-    >
-      <DialogTitle>
-        Terms & Conditions
-      </DialogTitle>
-
-      <DialogContent dividers>
-
-        <Typography variant="body2" paragraph>
-          Welcome to MyPackage. By using this service, you agree to the following terms and conditions.
-        </Typography>
-
-        <Typography variant="body2" paragraph>
-          1. Users must provide accurate information.
-        </Typography>
-
-        <Typography variant="body2" paragraph>
-          2. Password sharing is strictly prohibited.
-        </Typography>
-
-        <Typography variant="body2" paragraph>
-          3. The company reserves the right to suspend accounts for misuse.
-        </Typography>
-
-        <Typography variant="body2" paragraph>
-          4. Your data will be handled securely as per privacy policy.
-        </Typography>
-
-      </DialogContent>
-
-      <DialogActions>
-        <Button
-          onClick={() => setOpenTerms(false)}
-          variant="contained"
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: 500,
+          }}
         >
-          Close
-        </Button>
-      </DialogActions>
+          <Box
+            sx={{
+              display: { xs: 'flex', sm: 'none' },
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 1,
+              mb: 5,
+              width: '100%',
+              backgroundColor: '#000',
+              padding: '10px 0'
+            }}
+          >
+          {/* Square Logo */}
+          <Box
+            component="img"
+            src={loginSqr}
+            alt="square-logo"
+            sx={{
+              width: 22,
+              height: 'auto'
+            }}
+          />
 
-    </Dialog>
+          {/* Main Logo */}
+          <Box
+              component="img"
+              src={loginLogo}
+              alt="logo"
+              sx={{
+                width: 120,
+                height: 'auto'
+              }}
+            />
+          </Box>
+          <Box>
+          <Typography variant="h3" fontWeight="bold" gutterBottom>
+          Sign In
+          </Typography>
+
+          <Typography variant="body1" sx={{ opacity: 0.9 }} mb={4}>
+            Please enter your details to continue
+          </Typography>
+        </Box>
+          <form onSubmit={handleSubmit(onSubmit)}>
+              <Stack spacing={3}>
+                {/* EMAIL */}
+                <Box>
+                  <Typography
+                    variant="subtitle2"
+                    mb={1}
+                    fontWeight={500}
+                  >
+                    Username
+                  </Typography>
+
+                  <TextField
+                    fullWidth
+                    label="Email Address / Username"
+                    placeholder="example@materially.com"
+                    {...register('email', emailSchema)}
+                    error={Boolean(errors.email)}
+                    sx={inputSx}
+                  />
+
+                  {errors.email?.message && (
+                    <FormHelperText error>
+                      {errors.email.message}
+                    </FormHelperText>
+                  )}
+                </Box>
+
+                {/* PASSWORD */}
+                <Box>
+                  <Typography
+                    variant="subtitle2"
+                    mb={1}
+                    fontWeight={500}
+                  >
+                    Password
+                  </Typography>
+
+                  <FormControl
+                    fullWidth
+                    error={Boolean(errors.password)}
+                  >
+                    <InputLabel>Password</InputLabel>
+
+                    <OutlinedInput
+                      {...register('password', passwordSchema)}
+                      type={isPasswordVisible ? 'text' : 'password'}
+                      label="Password"
+                      placeholder="Enter your password"
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <Box
+                            onClick={() =>
+                              setIsPasswordVisible(!isPasswordVisible)
+                            }
+                            sx={{
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center'
+                            }}
+                          >
+                            {isPasswordVisible ? (
+                              <Visibility />
+                            ) : (
+                              <VisibilityOff />
+                            )}
+                          </Box>
+                        </InputAdornment>
+                      }
+                      sx={inputSx}
+                    />
+                  </FormControl>
+
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mt={1}
+                  >
+                    {errors.password?.message ? (
+                      <FormHelperText error>
+                        {errors.password.message}
+                      </FormHelperText>
+                    ) : (
+                      <Box />
+                    )}
+
+                    <Link
+                      component={RouterLink}
+                      to="/forgot-password"
+                      underline="hover"
+                      variant="subtitle2"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </Stack>
+                </Box>
+
+                {/* TERMS */}
+                <Box>
+                  <FormControl error={Boolean(errors.terms)}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          {...register('terms', {
+                            required:
+                              'You must accept Terms & Conditions'
+                          })}
+                        />
+                      }
+                      label={
+                        <span>
+                          I have read and agreed to{' '}
+                          <Link
+                            component="button"
+                            type="button"
+                            underline="hover"
+                            onClick={() => setOpenTerms(true)}
+                          >
+                            terms & conditions
+                          </Link>
+                        </span>
+                      }
+                    />
+
+                    {errors.terms && (
+                      <FormHelperText>
+                        {errors.terms.message}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                </Box>
+
+                {/* BUTTON */}
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  size="large"
+                  disabled={loading}
+                  sx={{
+                    py: 1.4,
+                    mt: 1
+                  }}
+                >
+                  {loading ? 'Signing In...' : 'Sign In'}
+                </Button>
+              </Stack>
+            </form>
+        </Box>
+      </Grid>
     </Grid>
   );
 }

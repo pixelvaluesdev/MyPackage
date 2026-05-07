@@ -54,8 +54,10 @@ export default function SamplePage() {
         : "red",
   }));
   return (
-    <Box sx={{ height: 580, borderRadius: 2, overflow: 'hidden' }}>
-      <MapContainer center={points.length ? [points[0].lat, points[0].lng] : [21.1458, 79.0882]} zoom={14} style={{ height: '100%' }}>
+    <Box sx={{ width: '100%',
+    height: 'calc(100vh - 80px)',
+    minHeight: '580px', borderRadius: 2, overflowY: 'hidden',position: 'relative' }}>
+      <MapContainer center={points.length ? [points[0].lat, points[0].lng] : [21.1458, 79.0882]} zoom={14} style={{ width: '100%',height: '100%' }}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
         {points.map((p) => (
