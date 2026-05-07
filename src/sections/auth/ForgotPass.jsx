@@ -107,7 +107,7 @@ export default function AuthLogin({ inputSx }) {
 
   };
 
-  return (
+  return ( 
     <Grid
       container
       sx={{

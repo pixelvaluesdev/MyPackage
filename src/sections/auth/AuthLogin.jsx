@@ -384,7 +384,7 @@ export default function AuthLogin({ inputSx }) {
               </Stack>
             </form>
         </Box>
-      </Grid>
+      </Grid> 
     </Grid>
   );
 }
