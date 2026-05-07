@@ -100,7 +100,7 @@ export default function AuthLogin({ inputSx }) {
         minHeight: '100vh',
         width: '100%'
       }}
-    >
+    > 
       <Snackbar
         open={snackbar.open}
         autoHideDuration={4000}

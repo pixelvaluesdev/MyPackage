@@ -68,7 +68,7 @@ export default function SamplePage() {
             </Popup>
           </Marker>
         ))}
-      </MapContainer>
+      </MapContainer> 
 
       {/* Legend */}
       
