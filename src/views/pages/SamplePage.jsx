@@ -61,7 +61,7 @@ export default function SamplePage() {
         {points.map((p) => (
           <Marker key={p.locker_code} position={[p.lat, p.lng]} icon={icon(p.color)}>
             <Popup>
-              {p.locker_code} <br />
+              {p.locker_code} <br /> 
               {/* {p.status} */}
             </Popup>
           </Marker>

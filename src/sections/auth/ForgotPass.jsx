@@ -248,7 +248,7 @@ export default function AuthLogin({ inputSx }) {
 
       <Button
         type="submit"
-        variant="contained"
+        variant="contained" 
         fullWidth
         disabled={loading}
       >
