@@ -108,64 +108,137 @@ export default function AuthLogin({ inputSx }) {
   };
 
   return (
-    <Grid container spacing={GRID_SPACING}>
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={4000}
-        onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          severity={snackbar.severity}
-          variant="filled"
-          sx={{ width: '100%',color: 'white' }}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
-      <Grid size={{ xs: 12, sm: 6, lg: 5 }}>
-        <Box
+    <Grid
+          container
           sx={{
-            position: 'relative',
-            height: '100vh',
-            width:'100vh',
-            backgroundImage: `url(${loginImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            minHeight: '100vh',
+            width: '100%'
           }}
         >
-          <Box
+          <Snackbar
+            open={snackbar.open}
+            autoHideDuration={4000}
+            onClose={() => setSnackbar({ ...snackbar, open: false })}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          >
+            <Alert
+              onClose={() => setSnackbar({ ...snackbar, open: false })}
+              severity={snackbar.severity}
+              variant="filled"
+              sx={{ width: '100%',color: 'white' }}
+            >
+              {snackbar.message}
+            </Alert>
+          </Snackbar>
+          {/* LEFT IMAGE SECTION */}
+          <Grid
+            size={{ xs: 0, sm: 5, md: 5 }}
             sx={{
-              position: 'absolute',
-              top: 30,
-              left: 30,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 0.5
+              display: {
+                xs: 'none',
+                sm: 'block'
+              }
             }}
           >
-            <Box component="img" src={loginSqr} alt="square-logo" sx={{ width: 24 }} />
-            
-            <Box component="img" src={loginLogo} alt="logo" sx={{ width: 140,marginleft:'10px' }} />
-          </Box>
-
-          <Box
+            <Box
+              sx={{
+                width: '100%',
+                height: '100vh',
+                background: `url(${loginImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                position: 'relative'
+              }}
+            >
+              {/* LOGO */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 30,
+                  left: 30,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1
+                }}
+              >
+                <Box
+                  component="img"
+                  src={loginSqr}
+                  alt="square"
+                  sx={{
+                    width: 24
+                  }}
+                />
+    
+                <Box
+                  component="img"
+                  src={loginLogo}
+                  alt="logo"
+                  sx={{
+                    width: 140
+                  }}
+                />
+              </Box>
+            </Box>
+          </Grid>
+    
+          {/* RIGHT FORM SECTION */}
+          <Grid
+            size={{ xs: 12, sm: 7, md: 7 }}
             sx={{
-              height: '100%',
               display: 'flex',
-              alignItems: 'center',
               justifyContent: 'center',
-              color: '#fff',
-              textAlign: 'center',
-              px: 4
+              alignItems: 'center',
+              backgroundColor: '#fff',
+              px: {
+                xs: 3,
+                sm: 5,
+                md: 8
+              },
+              py: 5
             }}
           >
-          </Box>
-        </Box>
-      </Grid>
-
-      <Grid py={5} px={5} size={{ xs: 12, sm: 6, lg: 7 }} sx={{ padding:'120px',backgroundColor:'#fff' }}>
+            <Box
+              sx={{
+                width: '100%',
+                maxWidth: 500,
+              }}
+            >
+              <Box
+                sx={{
+                  display: { xs: 'flex', sm: 'none' },
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 1,
+                  mb: 5,
+                  width: '100%',
+                  backgroundColor: '#000',
+                  padding: '10px 0'
+                }}
+              >
+              {/* Square Logo */}
+              <Box
+                component="img"
+                src={loginSqr}
+                alt="square-logo"
+                sx={{
+                  width: 22,
+                  height: 'auto'
+                }}
+              />
+    
+              {/* Main Logo */}
+              <Box
+                  component="img"
+                  src={loginLogo}
+                  alt="logo"
+                  sx={{
+                    width: 120,
+                    height: 'auto'
+                  }}
+                />
+              </Box>
       <Box>
       <Typography variant="h3" fontWeight="bold" gutterBottom>
        Forgot Password
@@ -255,7 +328,8 @@ export default function AuthLogin({ inputSx }) {
         {loading ? 'Resetting Password...' : 'Reset Password'}
       </Button>
     </form>
-    </Grid>
+    </Box>
+      </Grid>
     </Grid>
   );
 }
